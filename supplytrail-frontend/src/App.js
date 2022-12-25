@@ -1,3 +1,6 @@
+import "./App.css";
+
+import { ConfigProvider } from "antd";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ProductForm from "./components/Manufacturer/ProductForm/ProductForm";
 import BatchOrderList from "./components/Manufacturer/BatchOrderList/BatchOrderList";
@@ -25,95 +28,101 @@ import RetailerBatchJourney from "./components/Retailer/BatchJourneyList/Retaile
 function App() {
     return (
         <>
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<WithoutNav />}>
-                        <Route path="/" element={<Login />} />
-                    </Route>
-                    {isLoggedIn() ? (
-                        <Route element={<WithNav />}>
-                            <Route
-                                path="/manufacturer/homepage"
-                                element={<HomePage />}
-                            />
-                            <Route
-                                path="/manufacturer/productform"
-                                element={<ProductForm />}
-                            />
-                            <Route
-                                path="/manufacturer/batchorderlist"
-                                element={<BatchOrderList />}
-                            />
-                            <Route
-                                path="/manufacturer/batchjourney"
-                                element={<BatchJourneyList />}
-                            />
-                            <Route
-                                path="/manufacturer/faultybatch"
-                                element={<FaultyBatchList />}
-                            />
-                            <Route
-                                path="/manufacturer/productlist"
-                                element={<ProductListManufacturer />}
-                            />
-                            <Route
-                                path="/deliverer/homepage"
-                                element={<HomePageDeliverer />}
-                            />
-                            <Route
-                                path="/deliverer/invitationlist"
-                                element={<InvitationList />}
-                            />
-                            <Route
-                                path="/deliverer/transferlist"
-                                element={<TransferList />}
-                            />
-                            <Route
-                                path="/deliverer/batchjourney"
-                                element={<BatchJourneyListDeliverer />}
-                            />
-                            <Route
-                                path="/deliverer/faultybatch"
-                                element={<DelivererFaultyBatch />}
-                            />
-                            <Route
-                                path="/retailer/homepage"
-                                element={<HomePageRetailer />}
-                            />
-                            <Route
-                                path="/retailer/productlist"
-                                element={<ProductList />}
-                            />
-                            <Route
-                                path="/retailer/transferlist"
-                                element={<RetailerTransferList />}
-                            />
-                            <Route
-                                path="/retailer/faultybatch"
-                                element={<RetailerFaultyBatch />}
-                            />
-                            <Route
-                                path="/retailer/batchjourney"
-                                element={<RetailerBatchJourney />}
-                            />
-                            <Route
-                                path="/admin/homepage"
-                                element={<HomePageAdmin />}
-                            />
-                            {/* <Route path="/admin/createuser" element={<CreateUserForm />} /> */}
-                            <Route
-                                path="/admin/userlist"
-                                element={<UserList />}
-                            />
+            <ConfigProvider
+                theme={{
+                    fontFamily: "Inter",
+                }}
+            >
+                <BrowserRouter>
+                    <Routes>
+                        <Route element={<WithoutNav />}>
+                            <Route path="/" element={<Login />} />
                         </Route>
-                    ) : (
-                        <Route
-                            path="*"
-                            element={<Navigate to="/" replace />}
-                        ></Route>
-                    )}
-                </Routes>
-            </BrowserRouter>
+                        {isLoggedIn() ? (
+                            <Route element={<WithNav />}>
+                                <Route
+                                    path="/manufacturer/homepage"
+                                    element={<HomePage />}
+                                />
+                                <Route
+                                    path="/manufacturer/productform"
+                                    element={<ProductForm />}
+                                />
+                                <Route
+                                    path="/manufacturer/batchorderlist"
+                                    element={<BatchOrderList />}
+                                />
+                                <Route
+                                    path="/manufacturer/batchjourney"
+                                    element={<BatchJourneyList />}
+                                />
+                                <Route
+                                    path="/manufacturer/faultybatch"
+                                    element={<FaultyBatchList />}
+                                />
+                                <Route
+                                    path="/manufacturer/productlist"
+                                    element={<ProductListManufacturer />}
+                                />
+                                <Route
+                                    path="/deliverer/homepage"
+                                    element={<HomePageDeliverer />}
+                                />
+                                <Route
+                                    path="/deliverer/invitationlist"
+                                    element={<InvitationList />}
+                                />
+                                <Route
+                                    path="/deliverer/transferlist"
+                                    element={<TransferList />}
+                                />
+                                <Route
+                                    path="/deliverer/batchjourney"
+                                    element={<BatchJourneyListDeliverer />}
+                                />
+                                <Route
+                                    path="/deliverer/faultybatch"
+                                    element={<DelivererFaultyBatch />}
+                                />
+                                <Route
+                                    path="/retailer/homepage"
+                                    element={<HomePageRetailer />}
+                                />
+                                <Route
+                                    path="/retailer/productlist"
+                                    element={<ProductList />}
+                                />
+                                <Route
+                                    path="/retailer/transferlist"
+                                    element={<RetailerTransferList />}
+                                />
+                                <Route
+                                    path="/retailer/faultybatch"
+                                    element={<RetailerFaultyBatch />}
+                                />
+                                <Route
+                                    path="/retailer/batchjourney"
+                                    element={<RetailerBatchJourney />}
+                                />
+                                <Route
+                                    path="/admin/homepage"
+                                    element={<HomePageAdmin />}
+                                />
+                                {/* <Route path="/admin/createuser" element={<CreateUserForm />} /> */}
+                                <Route
+                                    path="/admin/userlist"
+                                    element={<UserList />}
+                                />
+                            </Route>
+                        ) : (
+                            <Route
+                                path="*"
+                                element={<Navigate to="/" replace />}
+                            ></Route>
+                        )}
+                    </Routes>
+                </BrowserRouter>
+            </ConfigProvider>
         </>
     );
 }

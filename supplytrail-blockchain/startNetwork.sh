@@ -31,16 +31,16 @@ rm -rf ../api/identity
 # launch network; create channel and join peer to channel
 pushd ./test-network
 ./network.sh down
-./network.sh up createChannel -ca -s couchdb -c mainchannel
+./network.sh up createChannel -ca -s couchdb -c mychannel
 #./network.sh deployCC -ccn fabcar -ccv 1 -cci initLedger -ccl ${CC_SRC_LANGUAGE} -ccp ${CC_SRC_PATH}
 popd
 pushd ./test-network/addOrg3
-./addOrg3.sh up -ca -s couchdb -c mainchannel
+./addOrg3.sh up -ca -s couchdb -c mychannel
 popd
 
 ##Deploy chaincode on org1, org2
 pushd ./test-network
-./network.sh deployCC -ccn supply -ccp ../chaincode-supply/supply/ -ccl javascript -cci initLedger -c mainchannel #remove initLedger
+./network.sh deployCC -ccn supply -ccp ../chaincode-supply/supply/ -ccl javascript -cci initLedger -c mychannel #remove initLedger
 popd
 
 ##export path for org3
@@ -63,13 +63,13 @@ peer lifecycle chaincode queryinstalled
 
 #approve chaincode
 export PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid supply.tar.gz)
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" --channelID mainchannel --name supply --version 1.0 --package-id $PACKAGE_ID --sequence 1 --init-required
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" --channelID mychannel --name supply --version 1.0 --package-id $PACKAGE_ID --sequence 1 --init-required
 
 #commit query
-peer lifecycle chaincode querycommitted --channelID mainchannel --name supply  --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"
+peer lifecycle chaincode querycommitted --channelID mychannel --name supply  --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"
 
 #init
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mainchannel -n supply --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" --peerAddresses localhost:11051 --tlsRootCertFiles "${PWD}/test-network/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt" -c '{"function":"initLedger", "Args":[]}'
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n supply --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" --peerAddresses localhost:11051 --tlsRootCertFiles "${PWD}/test-network/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt" -c '{"function":"initLedger", "Args":[]}'
 
 cat <<EOF
 

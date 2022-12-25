@@ -1,5 +1,5 @@
 {
-    "name": "mainchannel",
+    "name": "mychannel",
     "version": "1.0",
     "client": {
         "organization": "Org3",
@@ -15,7 +15,7 @@
         }
     },
     "channels": {
-        "mainchannel": {
+        "mychannel": {
             "orderers": ["orderer.example.com"],
             "peers": {
                 "peer0.org3.example.com": {
