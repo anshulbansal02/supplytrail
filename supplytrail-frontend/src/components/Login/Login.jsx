@@ -51,8 +51,6 @@ function Login() {
                         <img
                             src={Logo}
                             style={{
-                                marginTop: "24px",
-                                marginLeft: "24px",
                                 width: "60px",
                                 height: "60px",
                                 objectFit: "fill",
