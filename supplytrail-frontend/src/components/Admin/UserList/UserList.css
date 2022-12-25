@@ -1,0 +1,27 @@
+@import '~antd/dist/antd.css';
+
+.navbarcomponent {
+  position: relative;
+  z-index: 2;
+}
+
+.page-container {
+  width: 80vw;
+  justify-content: center;
+  align-content: center;
+  margin: 1.5rem auto;
+}
+
+.user-list-container{
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
+    background-color: white;
+    height: 80vh;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 2vh;
+}
+  
